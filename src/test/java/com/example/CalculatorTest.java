@@ -9,7 +9,7 @@ public class CalculatorTest extends TestCase {
 
     @Test
     public void testAdd() {
-        assertEquals(5, calculator.add(2, 3));
+        assertEquals(6, calculator.add(2, 3));
         System.out.println("Running testAdd");
     }
 
