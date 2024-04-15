@@ -21,9 +21,9 @@ jobs:
       - name: Generate coverage report
         run: mvn test jacoco:report
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
+        uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          #token: ${{ secrets.CODECOV_TOKEN }}
           # The path to the coverage report can be left as default if you're using JaCoCo's default output path.
           # file: ./target/site/jacoco/jacoco.xml
           # `slug` is optional and can be removed if your GitHub repository name matches the one on Codecov.
