@@ -18,20 +18,20 @@ jobs:
           java-version: 11
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-        
+
       - name: Generate coverage report
-        if: github.event.pull_request.title != 'Skip_test'
+        if: github.event.pull_request.title != 'Add_filest'
         run: mvn test jacoco:report
         
       - name: Upload coverage reports to Codecov
-        if: github.event.pull_request.title != 'Skip_test'
+        if: github.event.pull_request.title != 'Add_files'
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: maintest
 
       - name: Upload fallback coverage report to Codecov
-        if: github.event.pull_request.title == 'Skip_test'
+        if: github.event.pull_request.title == 'Add_files'
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
