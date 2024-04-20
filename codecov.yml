@@ -1,0 +1,22 @@
+codecov:
+  require_ci_to_pass: yes
+  notify:
+    wait_for_ci: yes
+
+coverage:
+  status:
+    project:
+      default: false  # Assuming you want to disable the default check
+      maintest:
+        flags:
+          - maintest
+        threshold: null
+        target: auto
+      skipcheck:  # This is the key for the flag-specific configuration
+        flags:
+          - skipcheck  # Ensure flags are provided as a list
+        target: 70%
+        informational: true
+    patch:
+      default:
+        enabled: yes
