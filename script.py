@@ -9,7 +9,7 @@ def set_status_bypass():
     print("GITHUB_SHA:", os.environ['GITHUB_SHA'])
     print("CODECOV_CONTEXT:", os.environ['CODECOV_CONTEXT'])
 
-    api_url = f"https://api.github.com/repos/{os.environ['REPO']}/pulls/{os.environ['PR_NUMBER']}/labels"
+    api_url = f"https://api.github.com/repos/{os.environ['REPO']}/issues/{os.environ['PR_NUMBER']}/labels"
     print("API URL:", api_url)
     # Fetch labels from the GitHub API
     headers = {"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}"}
