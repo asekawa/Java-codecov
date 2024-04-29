@@ -18,16 +18,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const payload = github.context.payload.pull_request;
-            const label = 'special-label'; // Customize this label as needed
-            console.log("Running steps for PR with '${label}'");
-
-            // Logging each label present on the PR
-            payload.labels.forEach(l => console.log(`Label on PR: ${l.name}`));
-
+            const payload = context.payload.pull_request;
+            const label = 'special-label'; // Change to your specific label
+            echo "Running steps for PR with 'special-label'"
             const hasLabel = payload.labels.some(l => l.name === label);
-            console.log(`Has label '${label}': ${hasLabel}`);
-
             core.setOutput('has-label', hasLabel.toString());
   job-with-label:
     needs: check-label
