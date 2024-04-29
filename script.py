@@ -2,8 +2,16 @@ import requests
 import os
 
 def set_status_bypass():
-    # Fetch labels from the GitHub API
+    print("Environment Variables:")
+    print("REPO:", os.environ['REPO'])
+    print("PR_NUMBER:", os.environ['PR_NUMBER'])
+    print("GITHUB_TOKEN:", os.environ['GITHUB_TOKEN'][:4] + "..." + os.environ['GITHUB_TOKEN'][-4:])  # Print masked token for security
+    print("GITHUB_SHA:", os.environ['GITHUB_SHA'])
+    print("CODECOV_CONTEXT:", os.environ['CODECOV_CONTEXT'])
+
     api_url = f"https://api.github.com/repos/{os.environ['REPO']}/pulls/{os.environ['PR_NUMBER']}/labels"
+    print("API URL:", api_url)
+    # Fetch labels from the GitHub API
     headers = {"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}"}
     response = requests.get(api_url, headers=headers)
     
