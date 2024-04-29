@@ -6,9 +6,9 @@ codecov:
 coverage:
   status:
     project:
-      default: false  
-      informational: true
-      
+      default:  
+        target: 80%    # the required coverage value
+        threshold: 1% 
     patch:
       default:
         enabled: yes
