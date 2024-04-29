@@ -12,6 +12,9 @@ coverage:
           - maintest
         #threshold: null
         target: 100%
+        threshold: 0%  # Allow 0% drop in coverage
+        if_not_found: error  # Set error if report not found
+        if_ci_failed: error  # Prevent merging if CI fails
       skipcheck:  # This is the flag to skip the code coverage check conditonally
         flags:
           - skipcheck  # Ensure flags are provided as a list
