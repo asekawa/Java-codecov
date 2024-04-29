@@ -6,13 +6,13 @@ codecov:
 coverage:
   status:
     project:
-      default: false  # Assuming you want to disable the default check
-      maintest:
+      default: false  
+      maintest: # This is the flag to check madate the code coverage check
         flags:
           - maintest
         threshold: null
         target: auto
-      skipcheck:  # This is the key for the flag-specific configuration
+      skipcheck:  # This is the flag to skip the code coverage check conditonally
         flags:
           - skipcheck  # Ensure flags are provided as a list
         informational: true
