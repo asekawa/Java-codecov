@@ -16,12 +16,20 @@ jobs:
         id: label-check
         uses: actions/github-script@v5
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const payload = context.payload.pull_request;
-            const label = 'special-label'; // Change to your specific label
-            const hasLabel = payload.labels.some(l => l.name === label);
-            core.setOutput('has-label', hasLabel.toString());
+            try {
+              const payload = github.context.payload.pull_request;
+              if (!payload) {
+                core.setFailed('No pull request found in the context.');
+                return;
+              }
+              const label = 'special-label'; // Change to your specific label
+              const hasLabel = payload.labels.some(l => l.name === label);
+              core.setOutput('has-label', hasLabel.toString());
+            } catch (error) {
+              core.setFailed(`An error occurred: ${error.message}`);
+            }
   job-with-label:
     needs: check-label
     if: needs.check-label.outputs.has-label == 'true'
