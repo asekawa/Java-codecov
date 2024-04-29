@@ -23,19 +23,43 @@ jobs:
         if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
         run: mvn test jacoco:report
         
-      - name: Upload coverage reports to Codecov
-        if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: maintest
+      - name: Set Flags Value
+        id: set_flags
+        run: |
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check') }}" == "true" ]]; then
+            echo "flags_value=skipcheck" >> $GITHUB_ENV
+          else
+            echo "flags_value=maintest" >> $GITHUB_ENV
 
-      - name: Upload fallback coverage report to Codecov
-        if: "contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./fallback_coverage.txt  # Path to a minimal coverage file
-          #fail_ci_if_error: false
-          flags: skipcheck
-          
+          flags: ${{ env.flags_value }}
+        
+      # - name: Upload coverage reports to Codecov
+      #   if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
+      #   uses: codecov/codecov-action@v4.0.1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     flags: maintest
+
+      #   if: "contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
+      #   uses: codecov/codecov-action@v4.0.1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: ./fallback_coverage.txt  # Path to a minimal coverage file
+      #     #fail_ci_if_error: false
+      #     flags: skipcheck
+
+      # - name: Upload fallback coverage report to Codecov
+      #   if: "contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
+      #   uses: codecov/codecov-action@v4.0.1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: ./fallback_coverage.txt  # Path to a minimal coverage file
+      #     #fail_ci_if_error: false
+      #     flags: skipcheck
+      #     # 
+
+      
