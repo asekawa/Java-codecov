@@ -11,7 +11,7 @@ def set_status_bypass():
 
     api_url = f"https://api.github.com/repos/{os.environ['REPO']}/issues/{os.environ['PR_NUMBER']}/labels"
     print("API URL:", api_url)
-    # Fetch labels from the GitHub API
+    
     headers = {"Authorization": f"Bearer {os.environ['PERSONAL_GITHUB_TOKEN']}"}  # Use PAT for necessary permissions
     response = requests.get(api_url, headers=headers)
     
