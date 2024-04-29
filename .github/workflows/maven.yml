@@ -29,4 +29,4 @@ jobs:
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: ${{ contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check') &&
+          flags: ${{ contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check') && 'skipcheck' || 'maintest' }}
