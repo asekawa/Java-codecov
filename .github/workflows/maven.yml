@@ -20,7 +20,6 @@ jobs:
           script: |
             const payload = context.payload.pull_request;
             const label = 'special-label'; // Change to your specific label
-            echo "Running steps for PR with 'special-label'"
             const hasLabel = payload.labels.some(l => l.name === label);
             core.setOutput('has-label', hasLabel.toString());
   job-with-label:
