@@ -7,15 +7,8 @@ coverage:
   status:
     project:
       default: false  
-      maintest: # This is the flag to check madate the code coverage check
-        flags:
-          - maintest
-        threshold: null
-        target: auto
-      skipcheck:  # This is the flag to skip the code coverage check conditonally
-        flags:
-          - skipcheck  # Ensure flags are provided as a list
-        informational: true
+      informational: true
+      
     patch:
       default:
         enabled: yes

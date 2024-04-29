@@ -28,4 +28,4 @@ jobs:
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_SHA: ${{ github.sha }}
-          CODECOV_CONTEXT: 'codecov/project/maintest'
+          CODECOV_CONTEXT: 'codecov/project'
