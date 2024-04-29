@@ -24,7 +24,7 @@ jobs:
             core.setOutput('has-label', hasLabel.toString());
   job-with-label:
     needs: check-label
-    if: needs.check-label.outputs.has-label == 'true'
+    if: needs.check-label.outputs.has-label == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -53,7 +53,7 @@ jobs:
 
   job-without-label:
     needs: check-label
-    if: needs.check-label.outputs.has-label == 'false'
+    if: needs.check-label.outputs.has-label == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
