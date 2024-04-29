@@ -21,6 +21,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
+      
       - name: Check labels and set status
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,20 +29,5 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           CODECOV_CONTEXT: 'codecov/project'
         run: |
-          import requests
-          import os
+          python -c "import requests; import os; api_url = f'https://api.github.com/repos/{os.environ['REPO']}/pulls/{os.environ['PR_NUMBER']}/labels'; headers = {'Authorization': f'token {os.environ['GITHUB_TOKEN']}'}; response = requests.get(api_url, headers=headers); labels = [label['name'] for label in response.json()]; if 'skip-codecov' in labels: status_url = f'https://api.github.com/repos/{os.environ['REPO']}/statuses/{os.environ['GITHUB_SHA']}'; data = {'state': 'success', 'context': os.environ['CODECOV_CONTEXT'], 'description': 'Codecov check bypassed by label', 'target_url': ''}; requests.post(status_url, headers=headers, json=data)"
 
-          api_url = f"https://api.github.com/repos/{os.environ['REPO']}/pulls/{os.environ['PR_NUMBER']}/labels"
-          headers = {"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
-          response = requests.get(api_url, headers=headers)
-          labels = [label['name'] for label in response.json()]
-
-          if 'skip-codecov' in labels:
-            status_url = f"https://api.github.com/repos/{os.environ['REPO']}/statuses/{os.environ['GITHUB_SHA']}"
-            data = {
-              "state": "success",
-              "context": os.environ['CODECOV_CONTEXT'],
-              "description": "Codecov check bypassed by label",
-              "target_url": ""  # Optional: URL to more details
-            }
-            requests.post(status_url, headers=headers, json=data)
