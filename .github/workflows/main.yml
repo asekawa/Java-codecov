@@ -26,7 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          CODECOV_CONTEXT: 'codecov/project' # Change this to your specific Codecov status context
+          CODECOV_CONTEXT: 'codecov/project'
         run: |
           import requests
           import os
@@ -45,4 +45,3 @@ jobs:
               "target_url": ""  # Optional: URL to more details
             }
             requests.post(status_url, headers=headers, json=data)
-
