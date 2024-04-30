@@ -1,5 +1,5 @@
 codecov:
-  require_ci_to_pass: yes
+  #require_ci_to_pass: yes
   notify:
     wait_for_ci: yes
 
@@ -10,8 +10,7 @@ coverage:
       maintest: # This is the flag to check mandate the code coverage check
         flags:
           - maintest
-        threshold: null
-        target: auto
+        target: 80%
       skipcheck:  # This is the flag to skip the code coverage check conditonally
         flags:
           - skipcheck  # Ensure flags are provided as a list
