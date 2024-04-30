@@ -18,19 +18,25 @@ jobs:
           java-version: 11
 
       - name: Install yq
-        run: sudo snap install yq
-          
+        run: sudo pip install yq
+
+      - name: Check yq version
+        run: yq --version
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
       - name: Generate coverage report
         if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
         run: mvn test jacoco:report
-      
+
       - name: Modify codecov.yml dynamically
         run: |
-         yq eval '.coverage.status.project.maintest.target = "75%"' -i codecov.yml
-  
+          yq eval '.coverage.status.project["maintest"].target = "75%"' -i codecov.yml
+
+      - name: Show modified codecov.yml
+        run: cat codecov.yml
+
       - name: Upload coverage reports to Codecov
         if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
         uses: codecov/codecov-action@v4.0.1
@@ -38,13 +44,10 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: maintest
           fail_ci_if_error: true
-        
 
       - name: Upload fallback coverage report to Codecov
         if: "contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          #fail_ci_if_error: false
           flags: skipcheck
-          
