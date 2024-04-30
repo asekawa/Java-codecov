@@ -22,7 +22,11 @@ jobs:
       - name: Generate coverage report
         if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
         run: mvn test jacoco:report
-        
+      
+      - name: Modify codecov.yml dynamically
+        run: |
+         yq eval '.coverage.status.project.maintest.target = "75%"' -i codecov.yml
+  
       - name: Upload coverage reports to Codecov
         if: "!contains(github.event.pull_request.labels.*.name, 'Skip_Coverage_Check')"
         uses: codecov/codecov-action@v4.0.1
