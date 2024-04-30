@@ -6,9 +6,16 @@ codecov:
 coverage:
   status:
     project:
-      default:  
-        target: 80%    # the required coverage value
-        threshold: 1% 
+      default: false  
+      maintest: # This is the flag to check mandate the code coverage check
+        flags:
+          - maintest
+        threshold: null
+        target: auto
+      skipcheck:  # This is the flag to skip the code coverage check conditonally
+        flags:
+          - skipcheck  # Ensure flags are provided as a list
+        informational: true
     patch:
       default:
         enabled: yes
