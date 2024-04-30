@@ -32,7 +32,8 @@ jobs:
 
       - name: Modify codecov.yml dynamically
         run: |
-          yq eval '.coverage.status.project["maintest"].target = "75%"' -i codecov.yml
+          yq eval '.coverage.status.project.maintest.target = "75%"' -i codecov.yml
+
 
       - name: Show modified codecov.yml
         run: cat codecov.yml
